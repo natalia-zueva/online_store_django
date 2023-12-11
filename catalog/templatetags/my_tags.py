@@ -15,3 +15,10 @@ def mediapath(val):
         return f'/media/{val}'
 
     return '#'
+
+@register.filter()
+def mymedia(val):
+    if val:
+        return f'/media/{val}'
+
+    return '#'
