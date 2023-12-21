@@ -4,6 +4,9 @@ NULLABLE = {'blank': True, 'null': True}
 
 
 class Category(models.Model):
+    """
+    Класс для создания категории продукта
+    """
     name = models.CharField(max_length=250, verbose_name='Наименование')
     description = models.TextField(**NULLABLE, verbose_name='Описание')
 
@@ -16,6 +19,9 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    """
+    Класс для создания продукта
+    """
     name = models.CharField(max_length=250, verbose_name='Наименование')
     description = models.TextField(**NULLABLE, verbose_name='Описание')
     photo = models.ImageField(upload_to='product/', **NULLABLE, verbose_name='фото')
@@ -30,3 +36,21 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
+
+
+class Version(models.Model):
+    """
+    Класс для создания версии товара
+    """
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+    number = models.IntegerField(**NULLABLE, verbose_name='Номер версии')
+    name = models.CharField(max_length=250, verbose_name='Название')
+    is_active = models.BooleanField(default=True, verbose_name='Текущая версия')
+
+    def __str__(self):
+        return f'{self.number} - {self.name}'
+
+    class Meta:
+        verbose_name = 'версия'
+        verbose_name_plural = 'версии'
+
