@@ -37,6 +37,10 @@ class Product(models.Model):
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
 
+    @property
+    def active_version(self):
+        return self.version_set.filter(is_active=True).last()
+
 
 class Version(models.Model):
     """
