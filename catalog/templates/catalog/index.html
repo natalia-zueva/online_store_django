@@ -6,7 +6,7 @@
     <h1 class="display-4">Каталог</h1>
 </div>
 <a class="p-2 btn btn-outline-primary mb-5" style="margin-left: 90px;"
-     href="{% url 'catalog:create_product' %}">Добавить товар
+   href="{% url 'catalog:create_product' %}">Добавить товар
 </a>
 <div class="container">
     <div class="row">
@@ -20,8 +20,13 @@
                     <h5 class="card-title">{{ object.name|title }}</h5>
                     <p class="card-text">{{ object.description|truncatewords:4 }}</p>
                     <a href="{% url 'catalog:view_product' object.pk %}" class="btn btn-primary">Подробнее</a>
+                    <br>
+                    <br>
+                    {% if object.active_version %}
+                    {{ object.active_version }}
+                    {% endif %}
+
                 </div>
-                <div class="card-footer">Актуальная версия продукта - {{ object.get_context_data }}</div>
             </div>
         </div>
         {% endfor %}
