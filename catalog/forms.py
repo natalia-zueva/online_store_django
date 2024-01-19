@@ -14,13 +14,15 @@ class StyleFormMixin:
 
 class ProductForm(StyleFormMixin, forms.ModelForm):
 
+
     class Meta:
         model = Product
         exclude = ('owner', 'create_data', 'last_change_data',)
 
+
     def clean_name(self):
         cleaned_data = self.cleaned_data['name']
-        prohibited_list = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
+        prohibited_list = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция','радар']
         for word in prohibited_list:
             if word in cleaned_data:
                 raise forms.ValidationError("В названии продукта есть запрещенные слова")
