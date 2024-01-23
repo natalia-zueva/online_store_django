@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from catalog.forms import ProductForm, VersionForm, ModeratorForm
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
 
 
 class ProductListView(ListView):
@@ -95,6 +95,11 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
         if self.object.owner != self.request.user:
             raise Http404
         return self.object
+
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'catalog/category_list.html'
 
 
 
